@@ -134,6 +134,7 @@ class RuneWallet extends BtcWallet_1.BtcWallet {
             updateOutputs.push(output);
             outputIndex++;
         }
+        const mint = rune_id_1.RuneId.fromString(clonedParamData.runeData.mint);
         return {
             inputs: clonedParamData.inputs,
             outputs: updateOutputs,
@@ -142,7 +143,7 @@ class RuneWallet extends BtcWallet_1.BtcWallet {
             runeData: {
                 edicts: typedEdicts,
                 etching: clonedParamData.runeData.etching,
-                mint: clonedParamData.runeData.mint,
+                mint: mint,
                 pointer: clonedParamData.runeData.pointer,
                 burn: clonedParamData.runeData.burn
             },
