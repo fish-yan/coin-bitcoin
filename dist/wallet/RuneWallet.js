@@ -112,7 +112,6 @@ class RuneWallet extends BtcWallet_1.BtcWallet {
             };
             updateOutputs.push(runeChange);
             outputIndex++;
-            console.log("aaaaa", updateOutputs);
         }
         const typedEdicts = [];
         for (const output of outputs) {
