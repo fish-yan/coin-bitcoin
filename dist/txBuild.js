@@ -238,6 +238,7 @@ function signBtc(utxoTx, privateKey, network, hashArray, hardware, changeOnly) {
     const changeAddress = utxoTx.address;
     const feePerB = utxoTx.feePerB || 10;
     const dustSize = utxoTx.dustSize || 546;
+    console.log(network);
     network = network || bitcoin.networks.bitcoin;
     if (utxoTx.memo) {
         let buf = crypto_lib_1.base.isHexString(utxoTx.memo) ? crypto_lib_1.base.fromHex(utxoTx.memo) : Buffer.from(crypto_lib_1.base.toUtf8(utxoTx.memo));

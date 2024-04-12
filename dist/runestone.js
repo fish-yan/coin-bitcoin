@@ -116,14 +116,7 @@ function buildRuneData(isMainnet, runeData) {
             previous = edict.id;
         }
     }
-    let prefix;
-    if (isMainnet) {
-        prefix = ops_1.OPS.OP_13;
-    }
-    else {
-        prefix = Buffer.from('RUNE_TEST');
-    }
-    const opReturnScript = bitcoin.script.compile([ops_1.OPS.OP_RETURN, prefix, Buffer.from(payload)]);
+    const opReturnScript = bitcoin.script.compile([ops_1.OPS.OP_RETURN, ops_1.OPS.OP_13, Buffer.from(payload)]);
     return opReturnScript;
 }
 exports.buildRuneData = buildRuneData;
