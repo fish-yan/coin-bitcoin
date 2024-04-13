@@ -2,20 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.bigintToLEBytes = exports.encodeToVec = exports.encode = exports.decode = void 0;
 function decode(buffer) {
-    let n = BigInt(0);
-    let i = 0;
-    while (true) {
-        if (i >= buffer.length) {
-            throw new Error('Varint decoding error: Buffer underflow');
+    var res = BigInt(0), shift = 0, i = 0, b;
+    do {
+        if (i >= buffer.length || shift > 49) {
+            throw new RangeError('Could not decode varint');
         }
-        const byte = BigInt(buffer[i]);
-        if (byte < BigInt(128)) {
-            return [n + byte, i + 1];
-        }
-        n += byte - BigInt(127);
-        n *= BigInt(128);
-        i++;
-    }
+        b = buffer[i++];
+        res += BigInt(shift < 28
+            ? (b & 0x7F) << shift
+            : (b & 0x7F) * Math.pow(2, shift));
+        shift += 7;
+    } while (b >= 0x80);
+    return [res, buffer.length];
 }
 exports.decode = decode;
 function encode(n) {
@@ -25,15 +23,11 @@ function encode(n) {
 }
 exports.encode = encode;
 function encodeToVec(n, v) {
-    let out = new Array(19).fill(0);
-    let i = 18;
-    out[i] = bigintToLEBytes(n)[0] & 127;
-    while (n > BigInt(0x7f)) {
-        n = n / BigInt(128) - BigInt(1);
-        i -= 1;
-        out[i] = bigintToLEBytes(n)[0] | 128;
+    while (n >> BigInt(7) > BigInt(0)) {
+        v.push(bigintToLEBytes(n)[0] | 128);
+        n >>= BigInt(7);
     }
-    v.push(...out.slice(i));
+    v.push(bigintToLEBytes(n)[0]);
     return v;
 }
 exports.encodeToVec = encodeToVec;
