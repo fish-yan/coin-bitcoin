@@ -40,6 +40,5 @@ exports.message = __importStar(require("./message"));
 __exportStar(require("./wallet/index"), exports);
 __exportStar(require("./onekey"), exports);
 __exportStar(require("./common"), exports);
-__exportStar(require("./tag"), exports);
-__exportStar(require("./flag"), exports);
+__exportStar(require("./runestone"), exports);
 //# sourceMappingURL=index.js.map

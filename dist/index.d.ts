@@ -11,5 +11,4 @@ export * as message from "./message";
 export * from "./wallet/index";
 export * from "./onekey";
 export * from "./common";
-export * from "./tag";
-export * from "./flag";
+export * from "./runestone";
