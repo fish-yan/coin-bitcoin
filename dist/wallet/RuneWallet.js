@@ -93,12 +93,11 @@ class RuneWallet extends BtcWallet_1.BtcWallet {
             }
         }
         let isRuneChange = false;
-        let firstOutputAddress = outputs.first.address;
-        for (const id of runeInputMap.keys()) {
-            let inputAmount = runeInputMap.get(id);
-            let sendAmount = runeSendMap.get(id);
-            if ((inputAmount != null && sendAmount != null && inputAmount > sendAmount) || (inputAmount != null && sendAmount == null)) {
-                if (firstOutputAddress != clonedParamData.address) {
+        if (outputs.first.address != clonedParamData.address) {
+            for (const id of runeInputMap.keys()) {
+                let inputAmount = runeInputMap.get(id);
+                let sendAmount = runeSendMap.get(id);
+                if ((inputAmount != null && sendAmount != null && inputAmount > sendAmount) || (inputAmount != null && sendAmount == null)) {
                     isRuneChange = true;
                 }
             }
