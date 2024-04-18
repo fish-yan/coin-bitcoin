@@ -1,3 +1,4 @@
+/// <reference types="node" />
 export declare const DIFFCHANGE_INTERVAL: bigint;
 export declare const CLAIM_BIT: bigint;
 export declare const MAX_DIVISIBILITY = 38;
@@ -10,6 +11,7 @@ export declare class Rune {
     get id(): bigint;
     constructor(value: bigint);
     static minimumAtHeight(height: bigint): Rune;
+    commitment(): Buffer;
     toString(): string;
     static fromString(s: string): Rune;
 }

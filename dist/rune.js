@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rune = exports.MAX_SPACERS = exports.RESERVED = exports.MAX_LIMIT = exports.MAX_DIVISIBILITY = exports.CLAIM_BIT = exports.DIFFCHANGE_INTERVAL = void 0;
+const varint_1 = require("./varint");
 exports.DIFFCHANGE_INTERVAL = BigInt(2016);
 exports.CLAIM_BIT = BigInt(1) << BigInt(48);
 exports.MAX_DIVISIBILITY = 38;
@@ -55,6 +56,14 @@ class Rune {
             rune *= BigInt(26);
         }
         return new Rune(rune);
+    }
+    commitment() {
+        const bytes = (0, varint_1.bigintToLEBytes)(this.value);
+        let end = bytes.length;
+        while (end > 0 && bytes[end - 1] === 0) {
+            end -= 1;
+        }
+        return Buffer.from(bytes.slice(0, end));
     }
     toString() {
         let n = this.value;
