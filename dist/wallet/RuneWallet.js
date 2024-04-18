@@ -93,7 +93,8 @@ class RuneWallet extends BtcWallet_1.BtcWallet {
             }
         }
         let isRuneChange = false;
-        if (outputs.first.address != clonedParamData.address) {
+        let firstAddress = outputs.length > 0 ? outputs[0].address : null;
+        if (firstAddress !== clonedParamData.address) {
             for (const id of runeInputMap.keys()) {
                 let inputAmount = runeInputMap.get(id);
                 let sendAmount = runeSendMap.get(id);
